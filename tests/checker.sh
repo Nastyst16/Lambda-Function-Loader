@@ -117,9 +117,7 @@ make_all() {
 # test helper functions
 start_server() {
     mkdir -p "${SERVER_OUT_DIR}"
-    nohup "${SERVER_BIN}" >& "${SERVER_OUTPUT}" &
-    SERVER_PID=$!
-    # echo "Starting server"
+    nohup "${SERVER_BIN}" &  >& "${SERVER_OUTPUT}" &
 }
 
 kill_server() {
