@@ -33,7 +33,7 @@ static int lib_execute(struct lib *lib)
 	/* TODO: Implement lib_execute(). */
 	return 0;
 }
-
+ 
 static int lib_close(struct lib *lib)
 {
 	/* TODO: Implement lib_close(). */
@@ -83,15 +83,45 @@ static int parse_command(const char *buf, char *name, char *func, char *params)
 int main(void)
 {
 	/* TODO: Implement server connection. */
-	int ret;
+	int sock_fd;
 	struct lib lib;
+
+	sock_fd = create_socket();
+	if (sock_fd < 0) {
+		perror("create_socket");
+		exit(EXIT_FAILURE);
+	}
+
+	sock_fd = bind_socket(sock_fd);
+	if (sock_fd < 0) {
+		perror("bind_socket");
+		exit(EXIT_FAILURE);
+	}
+
+	sock_fd = listen_socket(sock_fd);
+	if (sock_fd < 0) {
+		perror("listen_socket");
+		exit(EXIT_FAILURE);
+	}
 
 	while (1) {
 		/* TODO - get message from client */
+		
+		accept_socket(sock_fd);
+		
+		char buf[BUFSIZE];
+		recv_socket(sock_fd, buf, BUFSIZE);
+
+		send_socket(sock_fd, buf, strlen(buf));
+
+
+
 		/* TODO - parse message with parse_command and populate lib */
 		/* TODO - handle request from client */
-		ret = lib_run(&lib);
+		sock_fd = lib_run(&lib);
 	}
+
+	close_socket(sock_fd);
 
 	return 0;
 }
