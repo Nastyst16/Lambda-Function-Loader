@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	/* Format command based on program arguments. */
 	switch (argc) {
-	case 2:
+	case 2: 
 		snprintf(buf, BUFSIZE, "%s", argv[1]);
 		break;
 	case 3:
