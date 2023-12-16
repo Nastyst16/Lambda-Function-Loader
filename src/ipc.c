@@ -66,8 +66,6 @@ int accept_socket(int fd) {
 }
 
 
-
-
  
 int connect_socket(int fd)
 {
